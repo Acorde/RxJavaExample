@@ -1,10 +1,12 @@
 package com.chrisarriola.githubrxjava.ui;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "In onCompleted()");
+                        hideSoftKeyboard(editTextUsername);
                     }
 
                     @Override
@@ -99,5 +102,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (!TextUtils.isEmpty(username)) {
             getStarredRepos(username);
         }
+    }
+
+
+    protected void hideSoftKeyboard(EditText input) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
     }
 }
